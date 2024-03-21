@@ -1,28 +1,28 @@
 import {
-  Image,
+  Button,
   Center,
+  Checkbox,
   Flex,
   Heading,
-  Text,
-  Input,
-  Button,
-  useColorModeValue,
   HStack,
-  VStack,
-  Checkbox,
   Icon,
+  Image,
+  Input,
+  Text,
+  useColorModeValue,
+  VStack,
 } from "@hope-ui/solid"
 import { createMemo, createSignal, Show } from "solid-js"
 import { SwitchColorMode, SwitchLanguageWhite } from "~/components"
-import { useFetch, useT, useTitle, useRouter } from "~/hooks"
+import { useFetch, useRouter, useT, useTitle } from "~/hooks"
 import {
-  changeToken,
-  r,
-  notify,
-  handleRespWithoutNotify,
   base_path,
+  changeToken,
   handleResp,
+  handleRespWithoutNotify,
   hashPwd,
+  notify,
+  r,
 } from "~/utils"
 import { PResp, Resp } from "~/types"
 import LoginBg from "./LoginBg"
@@ -31,11 +31,11 @@ import { getSetting, getSettingBool } from "~/store"
 import { SSOLogin } from "./SSOLogin"
 import { IoFingerPrint } from "solid-icons/io"
 import {
-  parseRequestOptionsFromJSON,
-  get,
   AuthenticationPublicKeyCredential,
-  supported,
   CredentialRequestOptionsJSON,
+  get,
+  parseRequestOptionsFromJSON,
+  supported,
 } from "@github/webauthn-json/browser-ponyfill"
 
 const Login = () => {
@@ -43,7 +43,7 @@ const Login = () => {
   const logo = useColorModeValue(logos[0], logos.pop())
   const t = useT()
   const title = createMemo(() => {
-    return `${t("login.login_to")} ${getSetting("site_title")}`
+    return `Seven ${getSetting("site_title")}`
   })
   useTitle(title)
   const bgColor = useColorModeValue("white", "$neutral1")
@@ -273,25 +273,25 @@ const Login = () => {
         <Show when={ldapLoginEnabled}>
           <Checkbox
             w="$full"
-            checked={useLdap() === true}
+            checked={useLdap()}
             onChange={() => setUseLdap(!useLdap())}
           >
             {ldapLoginTips}
           </Checkbox>
         </Show>
-        <Button
-          w="$full"
-          colorScheme="accent"
-          onClick={() => {
-            changeToken()
-            to(
-              decodeURIComponent(searchParams.redirect || base_path || "/"),
-              true,
-            )
-          }}
-        >
-          {t("login.use_guest")}
-        </Button>
+        {/*<Button*/}
+        {/*  w="$full"*/}
+        {/*  colorScheme="accent"*/}
+        {/*  onClick={() => {*/}
+        {/*    changeToken()*/}
+        {/*    to(*/}
+        {/*      decodeURIComponent(searchParams.redirect || base_path || "/"),*/}
+        {/*      true,*/}
+        {/*    )*/}
+        {/*  }}*/}
+        {/*>*/}
+        {/*  {t("login.use_guest")}*/}
+        {/*</Button>*/}
         <Flex
           mt="$2"
           justifyContent="space-evenly"
