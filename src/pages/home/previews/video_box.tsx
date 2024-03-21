@@ -38,6 +38,12 @@ export const players: { icon: string; name: string; scheme: string }[] = [
     scheme: "infuse://x-callback-url/play?url=$durl",
   },
   {
+    icon: "zFuse",
+    name: "zFuse",
+    scheme:
+      "splive://$durl"
+  },
+  {
     icon: "mxplayer",
     name: "MX Player",
     scheme:
