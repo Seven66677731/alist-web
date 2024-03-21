@@ -1,14 +1,16 @@
 import axios, { CancelToken } from "axios"
 import {
-  PEmptyResp,
   FsGetResp,
   FsListResp,
-  Obj,
-  PResp,
   FsSearchResp,
+  Obj,
+  PEmptyResp,
+  PResp,
   RenameObj,
+  SearchNode,
 } from "~/types"
 import { r } from "."
+import { xiaoyaSearch } from "~/utils/xiaoya_search"
 
 export const fsGet = (
   path: string = "/",
@@ -151,7 +153,7 @@ export const fsSearch = async (
   page = 1,
   per_page = 100,
 ): Promise<FsSearchResp> => {
-  return r.post("/fs/search", {
+  const response = await r.post("/fs/search", {
     parent,
     keywords,
     scope,
@@ -159,6 +161,23 @@ export const fsSearch = async (
     per_page,
     password,
   })
+  return addXiaoyaData(response, keywords, scope)
+}
+
+const addXiaoyaData = async (
+  response: any,
+  keywords: string,
+  scope: number,
+): Promise<FsSearchResp> => {
+  let data = response.data
+  // 获取小雅的搜索数据
+  let xiaoyaRes: SearchNode[] = []
+  await xiaoyaSearch(keywords, "all", scope).then((rs) => {
+    xiaoyaRes = rs
+  })
+  // 搜索数据合并
+  data.content = data.content.concat(xiaoyaRes)
+  return response
 }
 
 export const buildIndex = async (paths = ["/"], max_depth = -1): PEmptyResp => {

@@ -45,6 +45,11 @@ export default defineConfig({
         changeOrigin: true,
         // rewrite: (path) => path.replace(/^\/api/, ""),
       },
+      "/xiaoya": {
+        target: "http://hk.seven-7.top:5678",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/xiaoya/, ""),
+      },
     },
   },
 })
