@@ -38,6 +38,11 @@ export const players: { icon: string; name: string; scheme: string }[] = [
     scheme: "infuse://x-callback-url/play?url=$durl",
   },
   {
+    icon: "zfuse",
+    name: "zFuse",
+    scheme: "splive://$durl",
+  },
+  {
     icon: "mxplayer",
     name: "MX Player",
     scheme:
@@ -103,7 +108,7 @@ export const VideoBox = (props: {
             whiteSpace: "nowrap",
           }}
           defaultChecked={autoNext === "true"}
-          onChange={(e) => {
+          onChange={(e: { currentTarget: { checked: boolean } }) => {
             props.onAutoNextChange(e.currentTarget.checked)
             localStorage.setItem(
               "video_auto_next",
